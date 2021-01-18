@@ -17,7 +17,9 @@ type Message struct {
 func main() {
 
 	m := Message{"Alice", "Hello", 1294706395881547000}
+	fmt.Println(m)
 	b, err := json.Marshal(m)
+	fmt.Println(b)
 
 	var Log string
 	fmt.Scanf("%s\n", &Log)
@@ -32,6 +34,11 @@ func main() {
 		fmt.Fprint(w, Log)
 		fmt.Fprint(w, err)
 		fmt.Fprint(w, b)
+	})
+
+	router.HandleFunc("/2nd", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Server", "A Go Web Server")
+		w.WriteHeader(200)
 	})
 
 	http.ListenAndServe(":3000", router)
