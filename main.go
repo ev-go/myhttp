@@ -9,14 +9,23 @@ import (
 )
 
 type Message struct {
-	Name string
-	Body string
-	Time int64
+	FirstKey    string
+	SecondKey   string
+	Name        string
+	PhoneNumber string
+	ICQ         string
+	LastKey     int64
 }
 
 func main() {
 
-	m := Message{"Alice", "Hello", 1294706395881547000}
+	var p int
+	fmt.Scanf("%n", &p)
+	fmt.Println(p)
+	o := p * 2
+	fmt.Println(o)
+
+	m := Message{"World", "Hello", "Dmitry", "79082706690", "393181839", 211}
 	fmt.Println(m)
 	b, err := json.Marshal(m)
 	fmt.Println(b)
@@ -33,7 +42,7 @@ func main() {
 	router.HandleFunc("/main", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, Log)
 		fmt.Fprint(w, err)
-		fmt.Fprint(w, b)
+		fmt.Fprint(w, string(b))
 	})
 
 	router.HandleFunc("/2nd", func(w http.ResponseWriter, r *http.Request) {
