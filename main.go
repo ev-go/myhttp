@@ -20,7 +20,7 @@ type Message struct {
 func main() {
 
 	var p int
-	fmt.Scanf("%n", &p)
+	fmt.Scan(&p)
 	fmt.Println(p)
 	o := p * 2
 	fmt.Println(o)
