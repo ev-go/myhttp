@@ -8,16 +8,40 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type Name struct {
+	FirstName string
+	LastName  string
+}
+
 type Message struct {
-	FirstKey    string
-	SecondKey   string
-	Name        string
+	FirstKey  string
+	SecondKey string
+	Name
 	PhoneNumber string
 	ICQ         string
 	LastKey     int64
 }
 
+type Music struct {
+	Genre Genre
+}
+
+type Genre struct {
+	Country string
+	Rock    string
+}
+
 func main() {
+
+	music := Music{Genre: Genre{Country: "Taylor Swift", Rock: "Aimee"}}
+
+	data, err := json.Marshal(music)
+	if err != nil {
+		fmt.Println("Oh no! There was an error:", err)
+		return
+	}
+
+	fmt.Println(string(data))
 
 	var p int
 	fmt.Scan(&p)
@@ -25,7 +49,8 @@ func main() {
 	o := p * 2
 	fmt.Println(o)
 
-	m := Message{"World", "Hello", "Dmitry", "79082706690", "393181839", 211}
+	//nameStruct := Name{"Dmitry", "Victorovich"}
+	m := Message{"World", "Hello", Name{"Dmitry", "Victorovich"}, "79082706690", "393181839", 211}
 	fmt.Println(m)
 	b, err := json.Marshal(m)
 	fmt.Println(b)
@@ -42,7 +67,7 @@ func main() {
 	router.HandleFunc("/main", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, Log)
 		fmt.Fprint(w, err)
-		fmt.Fprint(w, string(b))
+		fmt.Fprint(w, string(data))
 	})
 
 	router.HandleFunc("/2nd", func(w http.ResponseWriter, r *http.Request) {
